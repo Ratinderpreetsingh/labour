@@ -47,9 +47,11 @@ export default function HomePage() {
 
   return (
     <Container>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen ">
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-black via-gray-800 to-black text-white py-20 text-center">
+        <section
+         className=" text-white py-20 text-center"
+         >
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Find Trusted Labour Near You
           </h1>
@@ -63,7 +65,7 @@ export default function HomePage() {
             <select
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="px-4 py-3 rounded-full text-white focus:outline-none w-full md:w-1/3"
+              className="px-4 py-3 rounded-full text-white focus:outline-none w-full md:w-1/3 border bg-transparent"
             >
               <option value="">All Cities</option>
               {cities.map((c) => (
@@ -77,7 +79,7 @@ export default function HomePage() {
             <select
               value={skill}
               onChange={(e) => setSkill(e.target.value)}
-              className="px-4 py-3 rounded-full text-white focus:outline-none w-full md:w-1/3"
+              className="px-4 py-3 rounded-full text-white focus:outline-none w-full md:w-1/3 border "
             >
               <option value="">All Occupations</option>
               {skills.map((s) => (
@@ -104,7 +106,7 @@ export default function HomePage() {
         </section>
 
         {/* Results Section */}
-        <section className="py-16 max-w-6xl mx-auto px-6">
+        <section className="py-16 max-w-6xl mx-auto ">
           {results.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {results.map((worker) => (

@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Container from "@/components/Container";
 import WorkerCard from "@/components/Card";
-import Footer from "@/components/Footer";
 
 interface Worker {
   id: number;
@@ -63,9 +62,9 @@ export default function FindLabourPage() {
 
   return (
     <Container>
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen ">
         {/* Hero */}
-        <section className="bg-gradient-to-r from-black via-gray-800 to-black text-white py-16 text-center">
+        <section className=" text-white py-16 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Find Labour Near You
           </h1>
@@ -78,7 +77,7 @@ export default function FindLabourPage() {
             <select
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="px-4 py-3 rounded-full text-black w-full md:w-1/3"
+              className="px-4 py-3 rounded-full text-white w-full md:w-1/3 border"
             >
               <option value="">All Cities</option>
               {cities.map((c) => (
@@ -89,7 +88,7 @@ export default function FindLabourPage() {
             <select
               value={skill}
               onChange={(e) => setSkill(e.target.value)}
-              className="px-4 py-3 rounded-full text-black w-full md:w-1/3"
+              className="px-4 py-3 rounded-full text-white w-full md:w-1/3 border"
             >
               <option value="">All Occupations</option>
               {skills.map((s) => (

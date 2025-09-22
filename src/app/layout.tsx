@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import LayoutWrapper from "@/components/LayoutWrapper";
@@ -30,12 +30,11 @@ export default function RootLayout({
       <body
         className={`${poppins.className} ${geistMono.variable} antialiased`}
       >
-        <Navbar/>
+        <Navbar />
         <LayoutWrapper>
-
-        {children}
+          {children}
         </LayoutWrapper>
-        <Footer/>
+        <Footer />
 
       </body>
     </html>

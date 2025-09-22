@@ -4,6 +4,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import Container from "./Container";
 
 const menuItems = [
   { name: "Home", href: "/" },
@@ -17,7 +18,7 @@ export default function Navbar() {
 
   return (
     <nav className="bg-black shadow-lg sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+      <Container>
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
           <Link href="/" className="text-2xl font-extrabold text-white">
@@ -52,7 +53,7 @@ export default function Navbar() {
             {isOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
-      </div>
+      </Container>
 
       {/* Mobile Menu */}
       {isOpen && (
