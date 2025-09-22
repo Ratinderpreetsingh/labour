@@ -1,103 +1,131 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import WorkerCard from "@/components/Card";
+import Container from "@/components/Container";
+import { useState } from "react";
+
+interface Worker {
+  id: number;
+  name: string;
+  skill: string;
+  city: string;
+  price: number;
+}
+
+export default function HomePage() {
+  const [city, setCity] = useState("");
+  const [skill, setSkill] = useState("");
+  const [results, setResults] = useState<Worker[]>([]);
+
+  // Dummy data
+  const workers: Worker[] = [
+    { id: 1, price: 500, name: "Rajesh Kumar", skill: "Plumber", city: "Delhi" },
+    { id: 2, price: 700, name: "Suresh Patel", skill: "Electrician", city: "Mumbai" },
+    { id: 3, price: 600, name: "Anil Sharma", skill: "Painter", city: "Delhi" },
+    { id: 4, price: 800, name: "Ravi Singh", skill: "Carpenter", city: "Bangalore" },
+    { id: 5, price: 550, name: "Amit Verma", skill: "Electrician", city: "Delhi" },
+  ];
+
+  // Unique dropdown options
+  const cities = Array.from(new Set(workers.map((w) => w.city)));
+  const skills = Array.from(new Set(workers.map((w) => w.skill)));
+
+  const handleSearch = () => {
+    const filtered = workers.filter(
+      (worker) =>
+        (city === "" || worker.city === city) &&
+        (skill === "" || worker.skill === skill)
+    );
+    setResults(filtered);
+  };
+
+  const handleClear = () => {
+    setCity("");
+    setSkill("");
+    setResults([]);
+  };
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <Container>
+      <div className="min-h-screen bg-gray-50">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-r from-black via-gray-800 to-black text-white py-20 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+            Find Trusted Labour Near You
+          </h1>
+          <p className="text-lg md:text-xl mb-8">
+            Search skilled workers by city and occupation.
+          </p>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          {/* Search Filters */}
+          <div className="flex flex-col md:flex-row justify-center gap-3 max-w-3xl mx-auto">
+            {/* City Dropdown */}
+            <select
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              className="px-4 py-3 rounded-full text-white focus:outline-none w-full md:w-1/3"
+            >
+              <option value="">All Cities</option>
+              {cities.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+
+            {/* Skill Dropdown */}
+            <select
+              value={skill}
+              onChange={(e) => setSkill(e.target.value)}
+              className="px-4 py-3 rounded-full text-white focus:outline-none w-full md:w-1/3"
+            >
+              <option value="">All Occupations</option>
+              {skills.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+
+            {/* Buttons */}
+            <button
+              onClick={handleSearch}
+              className="px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition"
+            >
+              Search
+            </button>
+            <button
+              onClick={handleClear}
+              className="px-6 py-3 rounded-full bg-cyan-500 text-white font-medium hover:bg-red-700 transition"
+            >
+              Clear
+            </button>
+          </div>
+        </section>
+
+        {/* Results Section */}
+        <section className="py-16 max-w-6xl mx-auto px-6">
+          {results.length > 0 ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {results.map((worker) => (
+                <WorkerCard
+                  key={worker.id}
+                  id={worker.id}
+                  name={worker.name}
+                  price={worker.price}
+                  skill={worker.skill}
+                />
+              ))}
+            </div>
+          ) : (
+            <p className="text-center text-gray-500 mt-10">
+              {city || skill
+                ? "No workers found matching your search."
+                : "Select a city and occupation to find workers."}
+            </p>
+          )}
+        </section>
+      </div>
+    </Container>
   );
 }
