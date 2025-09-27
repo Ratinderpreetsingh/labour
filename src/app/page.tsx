@@ -2,6 +2,7 @@
 
 import WorkerCard from "@/components/Card";
 import Container from "@/components/Container";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 interface Worker {
@@ -16,6 +17,7 @@ export default function HomePage() {
   const [city, setCity] = useState("");
   const [skill, setSkill] = useState("");
   const [results, setResults] = useState<Worker[]>([]);
+  const router = useRouter();
 
   // Dummy data
   const workers: Worker[] = [
@@ -30,14 +32,21 @@ export default function HomePage() {
   const cities = Array.from(new Set(workers.map((w) => w.city)));
   const skills = Array.from(new Set(workers.map((w) => w.skill)));
 
-  const handleSearch = () => {
-    const filtered = workers.filter(
-      (worker) =>
-        (city === "" || worker.city === city) &&
-        (skill === "" || worker.skill === skill)
-    );
-    setResults(filtered);
-  };
+  // const handleSearch = () => {
+  //   const filtered = workers.filter(
+  //     (worker) =>
+  //       (city === "" || worker.city === city) &&
+  //       (skill === "" || worker.skill === skill)
+  //   );
+  //   setResults(filtered);
+  // };
+const handleSearch = () => {
+  if (!skill || !city) return;
+  router.push(`/${skill.toLowerCase()}-${city.toLowerCase()}`);
+
+  // const url = `/${skill.toLowerCase()}-${city.toLowerCase()}`;
+  // router.push(url); // matches [skillCity]
+};
 
   const handleClear = () => {
     setCity("");
