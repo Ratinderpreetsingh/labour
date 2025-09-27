@@ -1,6 +1,5 @@
 "use client";
 
-import WorkerCard from "@/components/Card";
 import Container from "@/components/Container";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,132 +10,129 @@ interface Worker {
   skill: string;
   city: string;
   price: number;
+  image: string;
 }
 
 export default function HomePage() {
   const [city, setCity] = useState("");
   const [skill, setSkill] = useState("");
-  const [results, setResults] = useState<Worker[]>([]);
   const router = useRouter();
 
-  // Dummy data
+  // Dummy data with public images
   const workers: Worker[] = [
-    { id: 1, price: 500, name: "Rajesh Kumar", skill: "Plumber", city: "Delhi" },
-    { id: 2, price: 700, name: "Suresh Patel", skill: "Electrician", city: "Mumbai" },
-    { id: 3, price: 600, name: "Anil Sharma", skill: "Painter", city: "Delhi" },
-    { id: 4, price: 800, name: "Ravi Singh", skill: "Carpenter", city: "Bangalore" },
-    { id: 5, price: 550, name: "Amit Verma", skill: "Electrician", city: "Delhi" },
+    { id: 1, name: "Rajesh Kumar", skill: "Plumber", city: "Delhi", price: 500, image: "https://images.pexels.com/photos/6078121/pexels-photo-6078121.jpeg?auto=compress&cs=tinysrgb&w=400" },
+    { id: 2, name: "Suresh Patel", skill: "Electrician", city: "Mumbai", price: 700, image: "https://images.pexels.com/photos/4492121/pexels-photo-4492121.jpeg?auto=compress&cs=tinysrgb&w=400" },
+    { id: 3, name: "Anil Sharma", skill: "Painter", city: "Delhi", price: 600, image: "https://images.pexels.com/photos/4483611/pexels-photo-4483611.jpeg?auto=compress&cs=tinysrgb&w=400" },
+    { id: 4, name: "Ravi Singh", skill: "Carpenter", city: "Bangalore", price: 800, image: "https://images.pexels.com/photos/4502719/pexels-photo-4502719.jpeg?auto=compress&cs=tinysrgb&w=400" },
+    { id: 5, name: "Amit Verma", skill: "Electrician", city: "Delhi", price: 550, image: "https://images.pexels.com/photos/4492113/pexels-photo-4492113.jpeg?auto=compress&cs=tinysrgb&w=400" },
   ];
 
-  // Unique dropdown options
   const cities = Array.from(new Set(workers.map((w) => w.city)));
   const skills = Array.from(new Set(workers.map((w) => w.skill)));
 
-  // const handleSearch = () => {
-  //   const filtered = workers.filter(
-  //     (worker) =>
-  //       (city === "" || worker.city === city) &&
-  //       (skill === "" || worker.skill === skill)
-  //   );
-  //   setResults(filtered);
-  // };
-const handleSearch = () => {
-  if (!skill || !city) return;
-  router.push(`/${skill.toLowerCase()}-${city.toLowerCase()}`);
-
-  // const url = `/${skill.toLowerCase()}-${city.toLowerCase()}`;
-  // router.push(url); // matches [skillCity]
-};
+  const handleSearch = () => {
+    if (!skill || !city) return;
+    router.push(`/${skill.toLowerCase()}-${city.toLowerCase()}`);
+  };
 
   const handleClear = () => {
     setCity("");
     setSkill("");
-    setResults([]);
   };
 
   return (
     <Container>
-      <div className="min-h-screen ">
+      <div className="relative min-h-screen flex flex-col">
+        {/* 🔹 Background Video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+        >
+          <source src="/videos/A.mp4" type="video/mp4" />
+        </video>
+
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70"></div>
+
         {/* Hero Section */}
-        <section
-         className=" text-white py-20 text-center"
-         >
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+        <section className="relative z-10 text-white py-28 text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">
             Find Trusted Labour Near You
           </h1>
-          <p className="text-lg md:text-xl mb-8">
+          <p className="text-lg md:text-2xl mb-8 drop-shadow-md">
             Search skilled workers by city and occupation.
           </p>
 
           {/* Search Filters */}
           <div className="flex flex-col md:flex-row justify-center gap-3 max-w-3xl mx-auto">
-            {/* City Dropdown */}
             <select
               value={city}
               onChange={(e) => setCity(e.target.value)}
-              className="px-4 py-3 rounded-full text-white focus:outline-none w-full md:w-1/3 border bg-transparent"
+              className="px-5 py-3 rounded-full text-black focus:outline-none w-full md:w-1/3 shadow-lg"
             >
               <option value="">All Cities</option>
               {cities.map((c) => (
-                <option key={c} value={c}>
-                  {c}
-                </option>
+                <option key={c} value={c}>{c}</option>
               ))}
             </select>
 
-            {/* Skill Dropdown */}
             <select
               value={skill}
               onChange={(e) => setSkill(e.target.value)}
-              className="px-4 py-3 rounded-full text-white focus:outline-none w-full md:w-1/3 border "
+              className="px-5 py-3 rounded-full text-black focus:outline-none w-full md:w-1/3 shadow-lg"
             >
               <option value="">All Occupations</option>
               {skills.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
+                <option key={s} value={s}>{s}</option>
               ))}
             </select>
 
-            {/* Buttons */}
             <button
               onClick={handleSearch}
-              className="px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition"
+              className="px-6 py-3 rounded-full bg-white text-black font-medium hover:bg-gray-200 transition shadow-lg"
             >
               Search
             </button>
             <button
               onClick={handleClear}
-              className="px-6 py-3 rounded-full bg-cyan-500 text-white font-medium hover:bg-red-700 transition"
+              className="px-6 py-3 rounded-full bg-cyan-500 text-white font-medium hover:bg-cyan-600 transition shadow-lg"
             >
               Clear
             </button>
           </div>
         </section>
 
-        {/* Results Section */}
-        <section className="py-16 max-w-6xl mx-auto ">
-          {results.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {results.map((worker) => (
-                <WorkerCard
-                  key={worker.id}
-                  id={worker.id}
-                  name={worker.name}
-                  price={worker.price}
-                  skill={worker.skill}
-                />
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-gray-500 mt-10">
-              {city || skill
-                ? "No workers found matching your search."
-                : "Select a city and occupation to find workers."}
-            </p>
-          )}
-        </section>
+     
       </div>
+         {/* 🔹 Worker Images Preview Section */}
+        <section className="relative z-10 py-10 max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-white text-center mb-6 drop-shadow-md">
+            Skilled Workers
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+            {workers?.map((worker) => (
+              <div
+                key={worker.id}
+                className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300"
+              >
+                <img
+                  src={worker.image}
+                  alt={worker.name}
+                  className="h-40 w-full object-cover"
+                />
+                <div className="p-4 text-center">
+                  <p className="font-semibold text-lg">{worker.name}</p>
+                  <p className="text-sm text-gray-600">{worker.skill}</p>
+                  <p className="text-sm text-gray-600">{worker.city}</p>
+                  <p className="text-md font-bold mt-2 text-cyan-600">₹{worker.price}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
     </Container>
   );
 }
