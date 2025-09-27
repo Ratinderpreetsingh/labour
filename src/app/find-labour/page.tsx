@@ -12,7 +12,7 @@ interface Worker {
   price: number;
 }
 
-export default function FindLabourPage() {
+export default  function FindLabourPage() {
   const [city, setCity] = useState("");
   const [skill, setSkill] = useState("");
   const [results, setResults] = useState<Worker[]>([]);
