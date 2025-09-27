@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { Wrench, Paintbrush, Plug, Hammer } from "lucide-react";
 import Select from "@/components/Select";
 import Button from "@/components/Button";
+import Image from "next/image";
 
 interface Worker {
   id: number;
@@ -23,16 +24,17 @@ export default function HomePage() {
   const router = useRouter();
 
   // Dummy data
-  const workers: Worker[] = [
-    { id: 1, name: "Rajesh Kumar", skill: "Plumber", city: "Delhi", price: 500, image: "https://images.pexels.com/photos/6078121/pexels-photo-6078121.jpeg?auto=compress&cs=tinysrgb&w=400" },
-    { id: 2, name: "Suresh Patel", skill: "Electrician", city: "Mumbai", price: 700, image: "https://images.pexels.com/photos/4492121/pexels-photo-4492121.jpeg?auto=compress&cs=tinysrgb&w=400" },
-    { id: 3, name: "Anil Sharma", skill: "Painter", city: "Delhi", price: 600, image: "https://images.pexels.com/photos/4483611/pexels-photo-4483611.jpeg?auto=compress&cs=tinysrgb&w=400" },
-    { id: 4, name: "Ravi Singh", skill: "Carpenter", city: "Bangalore", price: 800, image: "https://images.pexels.com/photos/4502719/pexels-photo-4502719.jpeg?auto=compress&cs=tinysrgb&w=400" },
-    { id: 5, name: "Amit Verma", skill: "Electrician", city: "Delhi", price: 550, image: "https://images.pexels.com/photos/4492113/pexels-photo-4492113.jpeg?auto=compress&cs=tinysrgb&w=400" },
-  ];
+const workers: Worker[] = [
+  { id: 1, name: "Rajesh Kumar", skill: "Plumber", city: "Delhi", price: 500, image: "/images/a.jpg" },
+  { id: 2, name: "Suresh Patel", skill: "Electrician", city: "Mumbai", price: 700, image: "/images/b.jpg" },
+  { id: 3, name: "Anil Sharma", skill: "Painter", city: "Delhi", price: 600, image: "/images/c.jpg" },
+  { id: 4, name: "Ravi Singh", skill: "Carpenter", city: "Bangalore", price: 800, image: "/images/d.jpg" },
+  { id: 5, name: "Amit Verma", skill: "Electrician", city: "Delhi", price: 550, image: "/images/e.jpg" },
+];
 
-  const cities: any = Array.from(new Set(workers.map((w) => w.city)));
-  const skills: any = Array.from(new Set(workers.map((w) => w.skill)));
+
+  const cities = Array.from(new Set(workers.map((w) => w.city)));
+  const skills = Array.from(new Set(workers.map((w) => w.skill)));
   const cityOptions = cities.map((c: string) => ({ label: c, value: c }));
   const skillOptions = skills.map((s: string) => ({ label: s, value: s }));
 
@@ -109,20 +111,21 @@ export default function HomePage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 1 }}
           >
-            <Select
-              options={cityOptions}
-              value={city}
-              onChange={setCity}
-              placeholder="Select City"
-              className="w-64"
-            />
-            <Select
-              options={skillOptions}
-              value={skill}
-              onChange={setSkill}
-              placeholder="Select Skill"
-              className="w-64"
-            />
+           <Select
+  options={cityOptions}
+  value={city}
+  onChange={(value: string) => setCity(value)}
+  placeholder="Select City"
+  className="w-64"
+/>
+
+<Select
+  options={skillOptions}
+  value={skill}
+  onChange={(value: string) => setSkill(value)}
+  placeholder="Select Skill"
+  className="w-64"
+/>
 
 
             <Button onClick={handleSearch} variant="white">Search</Button>
@@ -152,11 +155,13 @@ export default function HomePage() {
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: "spring", stiffness: 200 }}
               >
-                <img
-                  src={worker.image}
-                  alt={worker.name}
-                  className="h-40 w-full object-cover"
-                />
+               <Image
+  src={worker.image}
+  alt={worker.name}
+  width={400} // set desired width
+  height={160} // set desired height
+  className="object-cover w-full h-40"
+/>
                 <div className="p-4 text-center">
                   <p className="font-semibold text-lg text-white">{worker.name}</p>
                   <p className="text-sm text-gray-100">{worker.skill}</p>

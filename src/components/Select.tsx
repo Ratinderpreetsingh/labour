@@ -3,19 +3,17 @@
 import { FC, ReactNode } from "react";
 import { TiArrowSortedDown } from "react-icons/ti";
 
-interface Option {
-  label: string;
-  value: string | number;
-}
+
 
 interface SelectProps {
-  options: Option[];
-  value: string | number;
+  options: { label: string; value: string }[];
+  value: string;
   onChange: (value: string) => void;
   placeholder?: string;
   className?: string;
-  icon?: ReactNode; // optional icon inside select
+  icon?: ReactNode; // ✅ safer than 'any'
 }
+
 
 const Select: FC<SelectProps> = ({ options, value, onChange, placeholder, className, icon }) => {
   return (

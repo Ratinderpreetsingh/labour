@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -62,9 +63,9 @@ export default function LoginPage() {
 
           <p className="text-center text-gray-400 mt-4">
             Don’t have an account?{" "}
-            <a href="/auth/register" className="text-cyan-400 hover:underline">
+            <Link href="/auth/register" className="text-cyan-400 hover:underline">
               Sign up
-            </a>
+            </Link>
           </p>
         </motion.div>
       </div>

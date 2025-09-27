@@ -1,4 +1,5 @@
 import Container from "@/components/Container";
+import Image from "next/image";
 
 // app/search/[slug]/page.tsx
 interface SearchPageProps {
@@ -50,9 +51,11 @@ export default function SearchPage({ params }: SearchPageProps) {
               key={worker.id}
               className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300"
             >
-              <img
+              <Image
                 src={worker.image}
                 alt={worker.name}
+                  width={400} // set desired width
+  height={160} // set desired height
                 className="h-40 w-full object-cover"
               />
               <div className="p-4 text-center text-black">
