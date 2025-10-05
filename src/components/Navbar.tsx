@@ -95,28 +95,29 @@ export default function Navbar() {
         )}
       </nav>
 
-      {/* 🔹 Beautiful Search Section */}
-      <div className="bg-[#0d1417] border-t border-gray-800 py-5 sticky top-16 z-40 shadow-inner">
-        <Container>
-          <div className="flex justify-center w-full">
-            <div className="flex items-center gap-2 bg-[#1a2226] px-4 py-2 rounded-xl w-full md:w-1/2 shadow-lg shadow-black/20">
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="🔍 Search for labour, jobs, or skills..."
-                className="flex-1 bg-transparent text-gray-200 placeholder-gray-400 px-2 py-1 focus:outline-none text-sm md:text-base"
-              />
-              <button
-                onClick={handleSearch}
-                className="px-4 py-1.5 rounded-lg bg-cyan-500 text-white font-medium hover:bg-cyan-600 hover:shadow-cyan-500/40 transition-all duration-300"
-              >
-                Go
-              </button>
-            </div>
-          </div>
-        </Container>
+     {/* 🔹 Beautiful Search Section */}
+<div className="bg-[#0d1417] border-t border-gray-800 py-4 sticky top-16 z-40 shadow-inner">
+  <Container>
+    <div className="flex justify-center w-full">
+      <div className="flex items-center gap-2 bg-[#1a2226] px-3 py-2 rounded-xl w-full sm:w-3/4 md:w-1/2 shadow-lg shadow-black/20">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="🔍 Search for labour, jobs, or skills..."
+          className="flex-1 bg-transparent text-gray-200 placeholder-gray-400 px-2 py-2 focus:outline-none text-sm sm:text-base"
+        />
+        <button
+          onClick={handleSearch}
+          className="px-4 py-2 rounded-lg bg-cyan-500 text-white font-medium hover:bg-cyan-600 hover:shadow-cyan-500/40 transition-all duration-300"
+        >
+          Go
+        </button>
       </div>
+    </div>
+  </Container>
+</div>
+
     </>
   );
 }
