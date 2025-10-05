@@ -8,7 +8,7 @@ import { Wrench, Paintbrush, Plug, Hammer } from "lucide-react";
 import Select from "@/components/Select";
 import Button from "@/components/Button";
 import Image from "next/image";
-
+import {workers as workerData} from "../data/workers"
 interface Worker {
   id: number;
   name: string;
@@ -33,8 +33,8 @@ const workers: Worker[] = [
 ];
 
 
-  const cities = Array.from(new Set(workers.map((w) => w.city)));
-  const skills = Array.from(new Set(workers.map((w) => w.skill)));
+  const cities = Array.from(new Set(workerData.map((w) => w.city)));
+  const skills = Array.from(new Set(workerData.map((w) => w.skill)));
   const cityOptions = cities.map((c: string) => ({ label: c, value: c }));
   const skillOptions = skills.map((s: string) => ({ label: s, value: s }));
 

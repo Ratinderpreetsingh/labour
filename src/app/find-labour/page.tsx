@@ -3,13 +3,14 @@
 import { useState } from "react";
 import Container from "@/components/Container";
 import WorkerCard from "@/components/Card";
-
+import { workers } from "@/data/workers";
 interface Worker {
   id: number;
   name: string;
   skill: string;
   city: string;
   price: number;
+  phone:string;
 }
 
 export default  function FindLabourPage() {
@@ -18,28 +19,7 @@ export default  function FindLabourPage() {
   const [results, setResults] = useState<Worker[]>([]);
 
   // 🔹 Larger Dummy Dataset
-  const workers: Worker[] = [
-    { id: 1, name: "Rajesh Kumar", skill: "Plumber", city: "Delhi", price: 500 },
-    { id: 2, name: "Suresh Patel", skill: "Electrician", city: "Mumbai", price: 700 },
-    { id: 3, name: "Anil Sharma", skill: "Painter", city: "Delhi", price: 600 },
-    { id: 4, name: "Ravi Singh", skill: "Carpenter", city: "Bangalore", price: 800 },
-    { id: 5, name: "Amit Verma", skill: "Electrician", city: "Delhi", price: 550 },
-    { id: 6, name: "Deepak Yadav", skill: "Plumber", city: "Chennai", price: 520 },
-    { id: 7, name: "Karan Mehta", skill: "Painter", city: "Delhi", price: 630 },
-    { id: 8, name: "Sunil Joshi", skill: "Carpenter", city: "Kolkata", price: 750 },
-    { id: 9, name: "Mohit Rathi", skill: "Electrician", city: "Mumbai", price: 700 },
-    { id: 10, name: "Rohit Sinha", skill: "Plumber", city: "Pune", price: 580 },
-    { id: 11, name: "Ajay Gupta", skill: "Carpenter", city: "Delhi", price: 820 },
-    { id: 12, name: "Vikas Chauhan", skill: "Painter", city: "Bangalore", price: 640 },
-    { id: 13, name: "Arjun Nair", skill: "Electrician", city: "Chennai", price: 710 },
-    { id: 14, name: "Pankaj Dubey", skill: "Plumber", city: "Mumbai", price: 540 },
-    { id: 15, name: "Lokesh Rai", skill: "Painter", city: "Kolkata", price: 660 },
-    { id: 16, name: "Harish Kumar", skill: "Carpenter", city: "Delhi", price: 830 },
-    { id: 17, name: "Suraj Mishra", skill: "Plumber", city: "Bangalore", price: 570 },
-    { id: 18, name: "Manoj Singh", skill: "Electrician", city: "Pune", price: 690 },
-    { id: 19, name: "Ramesh Chauhan", skill: "Painter", city: "Chennai", price: 620 },
-    { id: 20, name: "Dinesh Patel", skill: "Carpenter", city: "Mumbai", price: 810 },
-  ];
+
 
   // 🔹 Dropdown Options
   const cities = Array.from(new Set(workers.map((w) => w.city)));
@@ -122,6 +102,7 @@ export default  function FindLabourPage() {
                   name={worker.name}
                   price={worker.price}
                   skill={worker.skill}
+                  phone={worker.phone}
                 />
               ))}
             </div>

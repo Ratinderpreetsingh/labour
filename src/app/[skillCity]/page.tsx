@@ -1,22 +1,8 @@
 import Container from "@/components/Container";
 import WorkerCard from "@/components/Card";
 import { notFound } from "next/navigation";
+import {workers} from "../../data/workers"
 
-interface Worker {
-  id: number;
-  name: string;
-  skill: string;
-  city: string;
-  price: number;
-}
-
-const workers: Worker[] = [
-  { id: 1, price: 500, name: "Rajesh Kumar", skill: "Plumber", city: "Delhi" },
-  { id: 2, price: 700, name: "Suresh Patel", skill: "Electrician", city: "Mumbai" },
-  { id: 3, price: 600, name: "Anil Sharma", skill: "Painter", city: "Delhi" },
-  { id: 4, price: 800, name: "Ravi Singh", skill: "Carpenter", city: "Bangalore" },
-  { id: 5, price: 550, name: "Amit Verma", skill: "Electrician", city: "Delhi" },
-];
 
 export default function DynamicPage({params}: {params: { skillCity: string };}) {
   if (!params?.skillCity) return notFound();
@@ -47,6 +33,7 @@ export default function DynamicPage({params}: {params: { skillCity: string };}) 
                 name={worker.name}
                 price={worker.price}
                 skill={worker.skill}
+                phone={worker.phone}
               />
             ))}
           </div>

@@ -23,6 +23,7 @@ export default function WorkerCard({
   imageUrl,
   phone,
 }: WorkerCardProps) {
+  // console.log(phone)
   return (
     <div className="bg-[#12181b] border border-gray-800 shadow-lg rounded-2xl p-6 flex flex-col items-center text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
       {/* Avatar / Image */}
@@ -63,12 +64,12 @@ export default function WorkerCard({
         </Link>
 
         {phone && (
-          <a
+          <Link
             href={`tel:${phone}`}
-            className="flex items-center justify-center gap-2 w-full px-4 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-500 transition"
+            className="flex items-center justify-center gap-2 w-full px-4 py-2 rounded-lg bg-cyan-500 text-white font-medium hover:bg-cyan-600 transition"
           >
             <Phone size={18} /> Call
-          </a>
+          </Link>
         )}
       </div>
     </div>
