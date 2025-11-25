@@ -1,22 +1,34 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
 import Link from "next/link";
+import { useLoginMutation } from "@/redux/services/authApi";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const router = useRouter();
+ const [login]=useLoginMutation()
+   const handleLogin = async (e: FormEvent) => {
     e.preventDefault();
-    // TODO: Add authentication logic here
-    console.log("Logging in with", email, password);
-    router.push("/"); // redirect to homepage on login
+    setErrorMessage(null);
+
+    try {
+      const res = await login({ email, password }).unwrap();
+
+      console.log("User logged in:", res.user);
+
+      router.push("/"); // redirect after successful login
+    } catch (err: any) {
+      console.error("Login failed:", err);
+      setErrorMessage("Invalid email or password");
+    }
   };
 
   return (

@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import Footer from "@/components/Footer";
+import AuthProvider from "@/providers/AuthProvider";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,11 +31,14 @@ export default function RootLayout({
       <body
         className={`${poppins.className} ${geistMono.variable} antialiased`}
       >
+        <AuthProvider>
+
         <Navbar />
         <LayoutWrapper>
           {children}
         </LayoutWrapper>
         <Footer />
+        </AuthProvider>
 
       </body>
     </html>
