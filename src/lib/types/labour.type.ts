@@ -1,5 +1,5 @@
 export interface Labour {
-    id?:string|number;
+    id?:string|number |undefined;
   name: string;
   phone: string;
   address: string;

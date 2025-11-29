@@ -3,7 +3,11 @@
 import { useState } from "react";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
-import { useDeleteLabourMutation, useGetLaboursQuery, useUpdateLabourMutation } from "@/redux/services/labourAPI";
+import {
+  useDeleteLabourMutation,
+  useGetLaboursQuery,
+  useUpdateLabourMutation,
+} from "@/redux/services/labourAPI";
 import { Labour } from "@/lib/types/labour.type";
 
 export default function LabourListPage() {
@@ -11,7 +15,7 @@ export default function LabourListPage() {
   const [deleteLabour] = useDeleteLabourMutation();
   const [updateLabour] = useUpdateLabourMutation();
 
-  const [editingId, setEditingId] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<string | number | null>(null);
   const [editForm, setEditForm] = useState<Labour>({
     name: "",
     phone: "",
@@ -25,7 +29,8 @@ export default function LabourListPage() {
     status: "active",
   });
 
-  const handleEditClick = (labour: any) => {
+  const handleEditClick = (labour: Labour) => {
+    if (!labour.id) return;
     setEditingId(labour.id);
     setEditForm({ ...labour });
   };
@@ -33,7 +38,14 @@ export default function LabourListPage() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
-    setEditForm({ ...editForm, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // Ensure numeric fields are stored as numbers
+    if (name === "salary" || name === "price") {
+      setEditForm({ ...editForm, [name]: Number(value) });
+    } else {
+      setEditForm({ ...editForm, [name]: value });
+    }
   };
 
   const handleUpdate = async () => {
@@ -49,7 +61,8 @@ export default function LabourListPage() {
     }
   };
 
-  const handleDelete = async (id: number|string|any) => {
+  const handleDelete = async (id?: string | number) => {
+    if (!id) return;
     if (confirm("Are you sure you want to delete this labour?")) {
       try {
         await deleteLabour(id).unwrap();
@@ -82,7 +95,7 @@ export default function LabourListPage() {
               </tr>
             </thead>
             <tbody>
-              {labours?.map((labour:Labour) => (
+              {labours?.map((labour) => (
                 <tr key={labour.id} className="border-b border-gray-700">
                   <td className="px-4 py-2">
                     {editingId === labour.id ? (
@@ -136,6 +149,7 @@ export default function LabourListPage() {
                     {editingId === labour.id ? (
                       <input
                         name="salary"
+                        type="number"
                         value={editForm.salary}
                         onChange={handleChange}
                         className="bg-[#1a2226] text-white px-2 py-1 rounded"
@@ -165,16 +179,25 @@ export default function LabourListPage() {
                         <Button onClick={handleUpdate} variant="primary">
                           Save
                         </Button>
-                        <Button onClick={() => setEditingId(null)} variant="secondary">
+                        <Button
+                          onClick={() => setEditingId(null)}
+                          variant="secondary"
+                        >
                           Cancel
                         </Button>
                       </>
                     ) : (
                       <>
-                        <Button onClick={() => handleEditClick(labour)} variant="primary">
+                        <Button
+                          onClick={() => handleEditClick(labour)}
+                          variant="primary"
+                        >
                           Edit
                         </Button>
-                        <Button onClick={() => handleDelete(labour.id)} variant="danger">
+                        <Button
+                          onClick={() => handleDelete(labour.id)}
+                          variant="danger"
+                        >
                           Delete
                         </Button>
                       </>

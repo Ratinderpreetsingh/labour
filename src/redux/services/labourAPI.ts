@@ -32,7 +32,7 @@ export const labourApi = baseApi.injectEndpoints({
     }),
 
     // UPDATE Labour
-    updateLabour: builder.mutation<Labour, { id: number; data: Partial<Labour> }>({
+    updateLabour: builder.mutation<Labour, { id: number|string; data: Partial<Labour> }>({
       query: ({ id, data }) => ({
         url: `/labour/update/${id}`,
         method: "PUT",
@@ -42,7 +42,7 @@ export const labourApi = baseApi.injectEndpoints({
     }),
 
     // DELETE Labour
-    deleteLabour: builder.mutation<{ success: boolean; id: number }, number>({
+    deleteLabour: builder.mutation<{  id: number|string ,success: boolean;}, number|string>({
       query: (id) => ({
         url: `/labour/delete/${id}`,
         method: "DELETE",
