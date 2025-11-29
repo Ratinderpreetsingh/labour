@@ -207,7 +207,6 @@ import Container from "@/components/Container";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react"; // 👈 Import useEffect
 import { motion } from "framer-motion";
-import { Wrench, Paintbrush, Plug, Hammer } from "lucide-react";
 import Select from "@/components/Select";
 import Button from "@/components/Button";
 import Image from "next/image";

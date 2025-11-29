@@ -1,4 +1,5 @@
 export interface Labour {
+    id?:string|number;
   name: string;
   phone: string;
   address: string;

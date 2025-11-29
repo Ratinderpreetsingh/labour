@@ -5,18 +5,19 @@ import { motion } from "framer-motion";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
 import { useCreateLabourMutation, useGetLaboursQuery } from "@/redux/services/labourAPI";
+import { Labour } from "@/lib/types/labour.type";
 
 export default function AddLabourPage() {
-  const [form, setForm] = useState<any>({
+  const [form, setForm] = useState<Labour>({
     name: "",
     phone: "",
     address: "",
     aadhar: "",
-    salary: "",
+    salary: 0,
     joiningDate: "",
     skill: "",
     city: "",
-    price: "",
+    price: 0,
     status: "active",
   });
 
@@ -39,11 +40,11 @@ export default function AddLabourPage() {
         phone: "",
         address: "",
         aadhar: "",
-        salary: "",
+        salary: 0,
         joiningDate: "",
         skill: "",
         city: "",
-        price: "",
+        price: 0,
         status: "active",
       });
     } catch (error) {
@@ -189,7 +190,7 @@ export default function AddLabourPage() {
             <p>Loading labours...</p>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {labours?.map((labour:any) => (
+              {labours?.map((labour:Labour) => (
                 <div
                   key={labour?.id}
                   className="p-4 rounded-lg bg-[#111a1c] shadow-md flex flex-col gap-1"

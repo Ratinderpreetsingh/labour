@@ -25,12 +25,12 @@ export default function LoginPage() {
       console.log("User logged in:", res.user);
 
       router.push("/admin"); // redirect after successful login
-    } catch (err: any) {
+    } catch (err) {
       console.error("Login failed:", err);
       setErrorMessage("Invalid email or password");
     }
   };
-
+console.log(errorMessage)
   return (
     <Container>
       <div className="min-h-screen flex items-center justify-center bg-[#0b1012] text-white">

@@ -4,7 +4,6 @@ import { useState } from "react";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
 import { useDeleteLabourMutation, useGetLaboursQuery, useUpdateLabourMutation } from "@/redux/services/labourAPI";
-import { number } from "framer-motion";
 import { Labour } from "@/lib/types/labour.type";
 
 export default function LabourListPage() {
@@ -50,7 +49,7 @@ export default function LabourListPage() {
     }
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: number|string|any) => {
     if (confirm("Are you sure you want to delete this labour?")) {
       try {
         await deleteLabour(id).unwrap();
@@ -83,7 +82,7 @@ export default function LabourListPage() {
               </tr>
             </thead>
             <tbody>
-              {labours?.map((labour:any) => (
+              {labours?.map((labour:Labour) => (
                 <tr key={labour.id} className="border-b border-gray-700">
                   <td className="px-4 py-2">
                     {editingId === labour.id ? (
