@@ -24,7 +24,7 @@ export default function LoginPage() {
 
       console.log("User logged in:", res.user);
 
-      router.push("/"); // redirect after successful login
+      router.push("/admin"); // redirect after successful login
     } catch (err: any) {
       console.error("Login failed:", err);
       setErrorMessage("Invalid email or password");

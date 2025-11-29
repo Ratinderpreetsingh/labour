@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const menu = [
     { name: "Dashboard", href: "/admin" },
     { name: "Add Labour", href: "/admin/labour/add" },
-    { name: "Find Labour", href: "/find-labour" },
+    { name: "List Labour", href: "/admin/labour/list" },
     { name: "Search", href: "/search" },
   ];
 
